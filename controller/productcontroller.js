@@ -38,9 +38,26 @@ async function createproduct(req, res) {
     res.status(500).send("Server Error");
   }
 }
+// *********************************************
+// get product by id
+
+async function getproductbyid(req, res) {
+  console.log(req.body);
+  const { id } = req.params;
+  try {
+    const product = await productmodule.findById(id);
+    console.log(id);
+    if (!product) {
+      res.status(404).send({ msg: "Product id is not found" });
+    }
+    return res.status(201).send({ msg: "This is product", product });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+}
 
 // **********************************************
-// Get product
+// Get product With Auth
 async function getallproduct(req, res) {
   console.log(req.body);
   try {
@@ -99,6 +116,7 @@ async function deleteproduct(req, res) {
 
 module.exports = {
   createproduct,
+  getproductbyid,
   getallproduct,
   updateproduct,
   deleteproduct,
