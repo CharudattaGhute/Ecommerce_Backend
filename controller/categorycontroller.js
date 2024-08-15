@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const categorymodel = require("../Module/category");
 
+// **********************************************
+// Add Category
 async function addcategory(req, res) {
   console.log(req.body);
   const { categoryname, createdBy } = req.body;
@@ -22,6 +24,8 @@ async function addcategory(req, res) {
   }
 }
 
+// *******************************************
+// Get all category
 async function getcategory(req, res) {
   console.log(req.body);
   try {
@@ -32,6 +36,8 @@ async function getcategory(req, res) {
   }
 }
 
+// ************************************************
+// Delete Category
 async function deletecategory(req, res) {
   console.log(req.body);
   const { id } = req.params;
@@ -46,6 +52,8 @@ async function deletecategory(req, res) {
   }
 }
 
+// *************************************************
+// Update category
 async function updatecategory(req, res) {
   console.log(req.body);
   const { categoryname, createdBy } = req.body;

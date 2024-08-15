@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 const productmodule = require("../Module/product");
 const categorymodel = require("../Module/category");
 
+// *****************************************
+// Added Product
 async function createproduct(req, res) {
   console.log(req.body);
   const { productname, category, price, available, quantity, createdBy } =
@@ -71,6 +73,7 @@ async function getallproduct(req, res) {
 }
 
 //**********************************************/
+// Updated Product
 async function updateproduct(req, res) {
   console.log(req.body);
   const { productname, category, price, available, quantity } = req.body;
@@ -97,6 +100,8 @@ async function updateproduct(req, res) {
   }
 }
 
+// ******************************************
+// Delete Product
 async function deleteproduct(req, res) {
   console.log(req.body);
   const { id } = req.params;

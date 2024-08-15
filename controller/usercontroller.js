@@ -8,6 +8,7 @@ const jwt = require("jsonwebtoken");
 //   });
 // };
 
+// **************************************
 // User Added
 async function register(req, res) {
   console.log(req.body);
@@ -35,8 +36,8 @@ async function register(req, res) {
   }
 }
 
+// ****************************************************
 //  User login
-
 async function login(req, res) {
   console.log(req.body);
   try {
