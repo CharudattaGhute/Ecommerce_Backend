@@ -46,8 +46,10 @@ async function login(req, res) {
     if (!user || !(await user.comparepassword(password))) {
       return res.status(400).send({ error: "Invalid Email or Password" });
     }
-    const token = jwt.sign({ _id: user._id }, "key", { expiresIn: "1h" });
-    res.status(200).send({ user, token });
+    const token = jwt.sign({ _id: user._id, role: user.role }, "key", {
+      expiresIn: "1h",
+    });
+    res.status(200).send({ user: user, access: token, sucess: true });
   } catch (error) {
     res.status(500).send({
       message: error.message,
