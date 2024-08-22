@@ -1,18 +1,14 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
-const auth = require("../middleware/auth");
+const authorise = require("../middleware/auth");
 const router = express.Router();
 
-const {
-  createproduct,
-  getallproduct,
-  updateproduct,
-  deleteproduct,
-} = require("../controller/productcontroller");
+const productcontroller = require("../controller/productcontroller");
 
-router.post("/createproduct", createproduct);
-router.get("/getallproduct", getallproduct);
-router.put("/updateproduct/:id", updateproduct);
-router.delete("/deleteproduct/:id", deleteproduct);
+router.post("/createproduct", productcontroller.createproduct);
+router.get("/getallproduct", authorise.auth, productcontroller.getallproduct);
+router.get("/getproductbyid/:id", productcontroller.getproductbyid);
+router.put("/updateproduct/:id", productcontroller.updateproduct);
+router.delete("/deleteproduct/:id", productcontroller.deleteproduct);
 
 module.exports = router;
