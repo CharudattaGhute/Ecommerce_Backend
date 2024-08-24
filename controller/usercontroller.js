@@ -27,12 +27,14 @@ async function register(req, res) {
 
       await newUser.save();
 
-      res.status(201).json({ message: "User registered successfully" });
+      res
+        .status(201)
+        .json({ message: "User registered successfully", success: true });
     } else {
-      res.status(400).json("User already exists");
+      res.status(400).json({ error: "User already exists", success: false });
     }
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).json({ error: error.message, success: false });
   }
 }
 
@@ -49,10 +51,11 @@ async function login(req, res) {
     const token = jwt.sign({ _id: user._id, role: user.role }, "key", {
       expiresIn: "1h",
     });
-    res.status(200).send({ user: user, access: token, sucess: true });
+    res.status(200).send({ user: user, access: token, success: true });
   } catch (error) {
     res.status(500).send({
       message: error.message,
+      success: false,
     });
   }
 }
