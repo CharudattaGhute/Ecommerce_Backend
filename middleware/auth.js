@@ -1,25 +1,20 @@
 const jwt = require("jsonwebtoken");
 
 exports.auth = (req, res, next) => {
-  const token = req.header("Authorization");
+  const authHeader = req.headers.authorization;
 
-  if (!token) {
-    return res.status(401).send("Access denied. No token provided.");
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    return res.status(401).send({ error: "Unauthorized, no token provided" });
   }
 
-  const bearerword = token.split(" ")[0].trim();
-  const bearertoken = token.split(" ")[1];
-
-  if (bearerword !== "Bearer") {
-    return res.status(401).send("Access denied. Invalid token format.");
-  }
+  const token = authHeader.split(" ")[1];
 
   try {
-    const decoded = jwt.verify(bearertoken, "key");
+    const decoded = jwt.verify(token, "key");
     req.user = decoded;
     next();
   } catch (error) {
-    res.status(401).send("Invalid token.");
+    res.status(401).send({ error: "Unauthorized, invalid token" });
   }
 };
 
