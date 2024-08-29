@@ -8,6 +8,7 @@ async function createproduct(req, res) {
   console.log(req.body);
   const { productname, category, price, available, quantity, createdBy } =
     req.body;
+  const image = req.file ? req.file.filename : null;
 
   try {
     const existingCategory = await categorymodel.findById(category);
@@ -25,6 +26,7 @@ async function createproduct(req, res) {
 
     const newProduct = new productmodule({
       productname,
+      image,
       category,
       price,
       available,
