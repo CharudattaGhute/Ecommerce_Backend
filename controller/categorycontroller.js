@@ -45,10 +45,9 @@ async function getcategorybyid(req, res) {
 // *******************************************
 // Get all category
 async function getcategory(req, res) {
-  console.log(req.body);
   try {
     const category = await categorymodel.find();
-    res.status(201).send({ message: "This is all product", category });
+    res.status(201).send({ category: category });
   } catch (error) {
     res.status(500).send(error.message);
   }
