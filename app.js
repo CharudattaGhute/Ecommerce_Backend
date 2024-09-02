@@ -24,6 +24,7 @@ app.use("/api", productrouter);
 app.use("/api/users", userrouter);
 app.use("/api/category", categoryrouter);
 
+app.use("/uploads", express.static("uploads"));
 app.listen(5001, () => {
   console.log("http://localhost:5001");
 });
