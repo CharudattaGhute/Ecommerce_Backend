@@ -6,8 +6,15 @@ const categorymodel = require("../Module/category");
 // Added Product
 async function createproduct(req, res) {
   console.log(req.body);
-  const { productname, category, price, available, quantity, createdBy } =
-    req.body;
+  const {
+    productname,
+    description,
+    category,
+    price,
+    available,
+    quantity,
+    createdBy,
+  } = req.body;
   const image = req.file ? req.file.filename : null;
 
   try {
@@ -27,6 +34,7 @@ async function createproduct(req, res) {
     const newProduct = new productmodule({
       productname,
       image,
+      description,
       category,
       price,
       available,
@@ -68,7 +76,21 @@ async function getallproduct(req, res) {
     const product = await productmodule
       .find()
       .populate("category", "productname");
-    res.status(201).json(product);
+    const modifiedProducts = product.map((product) => ({
+      _id: product._id,
+      productname: product.productname,
+      image: product.image
+        ? `http://localhost:5001/uploads/${product.image}`
+        : null,
+      category: product.category,
+      price: product.price,
+      availability: product.available ? "InStock" : "OutOfStock",
+      quantity: product.quantity,
+      description: product.description || "No description available.",
+      updatedAt: product.updatedAt || product.createdAt,
+    }));
+
+    res.status(201).json(modifiedProducts);
   } catch (error) {
     res.status(500).send("Server Error", error);
   }
