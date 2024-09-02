@@ -13,7 +13,12 @@ router.post(
   upload.single("image"),
   productcontroller.createproduct
 );
-router.get("/getallproduct", authorise.auth, productcontroller.getallproduct);
+router.get(
+  "/getallproduct",
+  authorise.auth,
+
+  productcontroller.getallproduct
+);
 router.get("/getproductbyid/:id", productcontroller.getproductbyid);
 router.put("/updateproduct/:id", productcontroller.updateproduct);
 router.delete("/deleteproduct/:id", productcontroller.deleteproduct);
