@@ -10,7 +10,11 @@ router.post(
   authorise.admin,
   categorycontroller.addcategory
 );
-router.get("/getcategorybyid/:id", categorycontroller.getcategorybyid);
+router.get(
+  "/getcategorybyid/:id",
+  authorise.auth,
+  categorycontroller.getcategorybyid
+);
 router.get("/getcategory", authorise.auth, categorycontroller.getcategory);
 router.put(
   "/updatecategory/:id",
@@ -20,6 +24,7 @@ router.put(
 );
 router.delete(
   "/deletecategory/:id",
+  authorise.auth,
   authorise.admin,
   categorycontroller.deletecategory
 );
