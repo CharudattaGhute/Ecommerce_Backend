@@ -6,6 +6,7 @@ const categorymodel = require("../Module/category");
 // Add Category
 async function addcategory(req, res) {
   console.log(req.body);
+  const userid = req.user._id;
   const { categoryname, createdBy } = req.body;
   try {
     const existingcategory = await categorymodel.findOne({ categoryname });
@@ -14,7 +15,7 @@ async function addcategory(req, res) {
     } else {
       const newcategory = new categorymodel({
         categoryname,
-        createdBy,
+        createdBy: userid,
         createdAt: Date.now(),
       });
       await newcategory.save();
@@ -36,7 +37,7 @@ async function getcategorybyid(req, res) {
     if (!category) {
       res.status(404).send({ msg: "category id is not found" });
     }
-    return res.status(201).send({ msg: "This is category", product });
+    return res.status(201).send({ categoryname: category.categoryname });
   } catch (error) {
     res.status(500).send(error);
   }
