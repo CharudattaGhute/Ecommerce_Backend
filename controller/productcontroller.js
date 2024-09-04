@@ -6,6 +6,7 @@ const categorymodel = require("../Module/category");
 // Added Product
 async function createproduct(req, res) {
   console.log(req.body);
+  const userid = req.user._id;
   const {
     productname,
     description,
@@ -39,7 +40,7 @@ async function createproduct(req, res) {
       price,
       available,
       quantity,
-      createdBy,
+      createdBy: userid,
       createdAt: Date.now(),
     });
 
