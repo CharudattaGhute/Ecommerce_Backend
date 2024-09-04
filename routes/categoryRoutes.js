@@ -1,9 +1,7 @@
 const express = require("express");
 const authorise = require("../middleware/auth");
 const router = express.Router();
-
 const categorycontroller = require("../controller/categorycontroller");
-
 router.post(
   "/addcategory",
   authorise.auth,
