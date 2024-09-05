@@ -116,10 +116,10 @@ async function updateproduct(req, res) {
     product.productname = productname || product.productname;
     product.category = category || product.category;
     product.price = price || product.price;
-    product.available = available || product.available;
+    product.available = available !== undefined ? available : product.available;
     product.quantity = quantity || product.quantity;
     await product.save();
-    res.json({ msg: "Product updated successfully", product });
+    res.status(201).send({ msg: "Product updated successfully", product });
   } catch (error) {
     res.status(500).send("Server Error", error);
   }
